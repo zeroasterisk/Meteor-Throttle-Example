@@ -1,0 +1,11 @@
+{
+  "meteor": {
+    "branch": "master"
+  },
+  "packages": {
+    "throttle": {
+      "git": "https://github.com/zeroasterisk/Meteor-Throttle.git"
+    },
+    "bootstrap-3": {}
+  }
+}
