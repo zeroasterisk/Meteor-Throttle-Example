@@ -1,4 +1,41 @@
 
+if (Meteor.isServer) {
+  // configure ThrottleAccounts.login - Accounts.validateLoginAttempt()
+  ThrottleAccounts.login(
+    'connection',
+    2,
+    (4 * 60000),
+    'Nope - You are limited to 2 logins every 4 min (per DDP connection)'
+  );
+  ThrottleAccounts.login(
+    'ip',
+    2,
+    (5 * 60000),
+    'Nope - You are limited to 2 logins every 5 min (per client IP address)'
+  );
+  ThrottleAccounts.login(
+    'user',
+    2,
+    60000,
+    'Nope - You are limited to 2 login every 1 min (per user account - success only, if failed login, no throttle)'
+  );
+  ThrottleAccounts.login(
+    'global',
+    40,
+    1000,
+    'We are under heavy load - More than 40 logins every second... wait a few, and retry'
+  );
+
+  // configure ThrottleAccounts.create - Accounts.validateNewUser()
+  ThrottleAccounts.create(
+    'global',
+    20,
+    1000,
+    'We are under heavy load - More than 20 creates every second... wait a few, and retry'
+  );
+}
+
+
 if (Meteor.isClient) {
 
   // 5 every 10 sec

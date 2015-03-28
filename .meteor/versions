@@ -1,4 +1,5 @@
 accounts-base@1.2.0
+accounts-password@1.1.0
 accounts-ui@1.1.5
 accounts-ui-unstyled@1.1.7
 autopublish@1.0.3
@@ -8,12 +9,12 @@ binary-heap@1.0.3
 blaze@2.1.0
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
-bootstrap-3@0.0.0
 callback-hook@1.0.3
 check@1.0.5
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
+email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
 html-tools@1.0.4
@@ -29,12 +30,14 @@ livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
 markdown@1.0.4
+massimilianomarini:bootstrap-3-cdn@3.3.1
 meteor@1.1.5
 meteor-platform@1.2.2
 minifiers@1.1.4
 minimongo@1.0.7
 mobile-status-bar@1.0.3
 mongo@1.1.0
+npm-bcrypt@0.7.8_1
 observe-sequence@1.0.5
 ordered-dict@1.0.3
 random@1.0.3
@@ -45,8 +48,10 @@ retry@1.0.3
 routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
+sha@1.0.3
 spacebars@1.0.6
 spacebars-compiler@1.0.5
+srp@1.0.3
 templating@1.1.0
 tracker@1.0.6
 ui@1.0.6
@@ -55,3 +60,4 @@ url@1.0.4
 webapp@1.2.0
 webapp-hashing@1.0.3
 zeroasterisk:throttle@0.2.1
+zeroasterisk:throttle-accounts@0.0.2

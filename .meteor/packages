@@ -7,8 +7,10 @@
 webapp
 accounts-ui
 markdown
-bootstrap-3
 insecure
 autopublish
 meteor-platform
 zeroasterisk:throttle
+zeroasterisk:throttle-accounts
+accounts-password
+massimilianomarini:bootstrap-3-cdn

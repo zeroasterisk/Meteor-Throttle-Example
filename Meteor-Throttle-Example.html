@@ -15,6 +15,7 @@
     </a>
     Example
   </h1>
+
   <div class="row">
     <div class="col-sm-6">
       {{> ex5x10}}
@@ -23,7 +24,25 @@
       {{> ex1x3}}
     </div>
   </div>
+
+  <h2>
+    <a href="https://github.com/zeroasterisk/Meteor-Throttle-Accounts">
+      Meteor Throttle Accounts
+    </a>
+    Example
+  </h2>
+
+  <div class="row">
+    <div class="col-sm-3">
+      {{> accounts}}
+    </div>
+    <div class="col-sm-9">
+      {{> accountsCode}}
+    </div>
+  </div>
+
   <br>
+
   <div class="well">
     {{> about}}
   </div>
@@ -37,7 +56,8 @@
   <strong>10 seconds</strong>
   <br>
   <input type="button" value="Test" class="btn btn-primary" />
-  <hr>
+  <br>
+  <br>
   <div class="log muted">{{log}}</div>
 </template>
 
@@ -48,7 +68,8 @@
   <strong>3 seconds</strong>
   <br>
   <input type="button" value="Test" class="btn btn-primary" />
-  <hr>
+  <br>
+  <br>
   <div class="log muted">{{log}}</div>
 </template>
 
@@ -117,5 +138,80 @@ Methods Methods (call-able)
 * `throttle-set(key, expireInMS)` --> `Throttle.set()`
 * `throttle-debug(bool)` --> pass in true/false to toggle server loggin on checks
 {{/markdown}}
+</template>
+
+<template name="accounts">
+  <div class="lead">
+    {{> loginButtons}}
+  </div>
+
+  Throttled to only allow:
+  <ul>
+    <li>
+      <strong>2 login attempts</strong>
+      every
+      <strong>5 minutes</strong>
+    </li>
+    <li>
+      <strong>1 new account creation attempt</strong>
+      every
+      <strong>55 seconds</strong>
+    </li>
+  </ul>
+
+  <div class="alert alert">
+
+
+    <p>
+    NOTE: this will still make a (WebSocket) round-trip to the server
+    to validate the Throttle <strong>before</strong> it attempts to validate the login/creation....
+    </p>
+
+    <p>
+    This means, if you try to login with a bad password, it counts.
+    If you try to create an account with an existing email address, it counts.
+    </p>
+
+  </div>
+</template>
+
+<template name="accountsCode">
+  <pre>
+if (Meteor.isServer) {
+  // configure ThrottleAccounts.login - Accounts.validateLoginAttempt()
+  ThrottleAccounts.login(
+    'connection',
+    2,
+    (4 * 60000),
+    'Nope - You are limited to 2 logins every 4 min (per DDP connection)'
+  );
+  ThrottleAccounts.login(
+    'ip',
+    2,
+    (5 * 60000),
+    'Nope - You are limited to 2 logins every 5 min (per client IP address)'
+  );
+  ThrottleAccounts.login(
+    'user',
+    2,
+    60000,
+    'Nope - You are limited to 2 login every 1 min (per user account - success only, if failed login, no throttle)'
+  );
+  ThrottleAccounts.login(
+    'global',
+    40,
+    1000,
+    'We are under heavy load - More than 40 logins every second... wait a few, and retry'
+  );
+
+  // configure ThrottleAccounts.create - Accounts.validateNewUser()
+  ThrottleAccounts.create(
+    'global',
+    20,
+    1000,
+    'We are under heavy load - More than 20 creates every second... wait a few, and retry'
+  );
+}
+  </pre>
 </template>
 
