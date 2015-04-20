@@ -38,6 +38,19 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
 
+  Session.set('debug', true);
+  Session.set('scope', 'global');
+  Template.main.events({
+    'change #debug': function() {
+      Session.set('debug', $('#debug').val()==1);
+      Meteor.call('example-set-debug', $('#debug').val()==1);
+    },
+    'change #scope': function() {
+      Session.set('scope', $('#scope').val());
+      Meteor.call('example-set-scope', $('#scope').val());
+    }
+  });
+
   // 5 every 10 sec
   Template.ex5x10.rendered = function() {
     Session.set('ex5x10', '');
@@ -62,7 +75,7 @@ if (Meteor.isClient) {
         }
         Session.set('ex5x10', Session.get('ex5x10') + log);
       });
-    },
+    }
   });
 
   // 1 every 3 sec
@@ -95,7 +108,22 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-console.log('Methods');
-console.log(Meteor.default_server.method_handlers);
+  // config
+  console.log('Setting Example to Debug=true');
+  Throttle.setDebugMode(true);
+  console.log('Setting Example to scope=global');
+  Throttle.setScope('global');
+
+  // custom methods
+  //   you probably wouldn't want to expose these to the client
+  //   in the real world... but for this example it makes sesne
+  Meteor.methods({
+    'example-set-debug': function(bool) {
+      Throttle.setDebugMode(bool);
+    },
+    'example-set-scope': function(scope) {
+      Throttle.setScope(scope);
+    }
+  });
 }
 

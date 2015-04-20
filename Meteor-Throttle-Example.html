@@ -9,12 +9,35 @@
 </body>
 
 <template name="main">
-  <h1>
-    <a href="https://github.com/zeroasterisk/Meteor-Throttle">
-      Meteor Throttle
-    </a>
-    Example
-  </h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>
+        <a href="https://github.com/zeroasterisk/Meteor-Throttle">
+          Meteor Throttle
+        </a>
+        Example
+      </h1>
+    </div>
+    <div class="col-md-6">
+      <div class="form-inline well well-sm">
+        <label class="control-label">Scope
+          <select id="scope" class="form-control">
+            <option value="global" selected="selected">Global: all users (default)</option>
+            <option value="user">User: key user</option>
+          </select>
+        </label>
+        <label class="control-label">Debug
+          <select id="debug" class="form-control">
+            <option value="0">Silent (default)</option>
+            <option value="1" selected="selected">Debug Mode</option>
+          </select>
+        </label>
+        <span class="help-block">
+          Scope determines if we throttle <em>globally</em> or <em>per-user</em> securely, on server, based on <code>Meteor.userId()</code>
+        </span>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-sm-6">
